@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listaDati = (TextView) findViewById(R.id.listaDati);
+
         editText = (EditText) findViewById(R.id.editText);
         tempi = new ArrayList<Double>();
 
