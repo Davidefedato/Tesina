@@ -26,22 +26,39 @@ public class dati extends AppCompatActivity {
     SQLiteDatabase db;
 
     Button bottone;
-    //String moto;
-    String circuito;
+    String circuito1;
     String tempo;
     String dati;
+    String stringa;
     int i=0;
     String queryCat;
+    String queryNaz;
+
     private Spinner categoria;
     private Spinner moto;
+    private Spinner nazione;
+    private Spinner circuito;
+
     String queryCategoria;
     String categoriaSelezionata;
+
     ArrayList <String> categorie;
     ArrayList <String> elencoMoto;
+
+    ArrayList <String> nazioni;
+    ArrayList <String> elencoCircuiti;
+
     private ArrayAdapter<String> spinnerAdapter;
     private ArrayAdapter<String> spinnerAdapter1;
+
+    private ArrayAdapter<String> spinnerAdapter2;
+    private ArrayAdapter<String> spinnerAdapter3;
+
     private String s;
+
     private String motoQuery;
+    private String circuitoQuery;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //INIZIALIZZAZIONE DELLE VARIABILI
@@ -51,30 +68,49 @@ public class dati extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dati);
         bottone = (Button) findViewById(R.id.caricaDB);
+
         categoria = (Spinner) findViewById(R.id.categoria);
         moto = (Spinner) findViewById(R.id.moto);
-        categorie = new ArrayList<String>();
 
+        nazione = (Spinner) findViewById(R.id.nazione);
+        circuito = (Spinner) findViewById(R.id.circuito);
+
+        categorie = new ArrayList<String>();
+        nazioni = new ArrayList<String>();
 
         spinnerAdapter = new ArrayAdapter<String>(this, R.layout.row);
         spinnerAdapter1 = new ArrayAdapter<String>(this, R.layout.row);
 
+        spinnerAdapter2 = new ArrayAdapter<String>(this, R.layout.row);
+        spinnerAdapter3 = new ArrayAdapter<String>(this, R.layout.row);
+
         categoria.setAdapter(spinnerAdapter);
         moto.setAdapter(spinnerAdapter1);
 
+        nazione.setAdapter(spinnerAdapter2);
+        circuito.setAdapter(spinnerAdapter3);
+
         queryCat = "SELECT DISTINCT Categoria FROM Moto";
+        queryNaz = "SELECT DISTINCT Nazione FROM Circuito";
 
         final DatabaseHelper gdh = new DatabaseHelper(getBaseContext());
         // Gets the data repository in write mode
         SQLiteDatabase db = gdh.getReadableDatabase();
 
         Cursor c = db.rawQuery(queryCat, null);
+        Cursor e = db.rawQuery(queryNaz, null);
 
         /*Carico la lista con le classi. Se premo una classe vedo tutti i compiti salvati*/
         while (c.moveToNext()) {
             categorie.add(c.getString(0));
+
         }
         spinnerAdapter.addAll(categorie);
+
+        while (e.moveToNext()){
+            nazioni.add(e.getString(0));
+        }
+        spinnerAdapter2.addAll(nazioni);
 
         categoria.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -126,6 +162,64 @@ public class dati extends AppCompatActivity {
         });
 
         db.close();
+
+
+        nazione.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+
+                elencoCircuiti = new ArrayList<String>();
+                TextView txt = (TextView) arg1.findViewById(R.id.rowtext);
+                String s = txt.getText().toString();
+
+                SQLiteDatabase db = gdh.getWritableDatabase();
+
+                String selectQuery = "SELECT Nome, Nazione, Lunghezza  FROM Circuito WHERE Nazione = '" + s + "' ";
+                Cursor d = db.rawQuery(selectQuery, null);
+                int x = d.getCount();
+
+                for (int i = 0; i < x; i++) {
+                    d.moveToNext();
+                    stringa = d.getString(0) + " " + d.getString(1) + " " + d.getString(2);
+                    elencoCircuiti.add(stringa);
+                }
+
+                spinnerAdapter3.clear();
+                spinnerAdapter3.add("--Scegli--");
+                spinnerAdapter3.addAll(elencoCircuiti);
+                d.close();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+
+        });
+
+        circuito.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                TextView txt = (TextView) arg1.findViewById(R.id.rowtext);
+                s = txt.getText().toString();
+                if (s != "--Scegli--") {
+                    circuitoQuery = s;
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
+        db.close();
+
+
+
+
+
+
 
 
 

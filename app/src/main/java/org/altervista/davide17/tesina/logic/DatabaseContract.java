@@ -33,5 +33,29 @@ public final class
                 "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
     }
 
+    /* Definisce il contentuto della tabella livello*/
+    public static abstract class LevelEntry1 implements BaseColumns {
+        public static final String TABLE_NAME = "Circuito";
+        public static final String COLUMN_NAME_ID = "id";
+        public static final String COLUMN_NAME_NOME = "Nome";
+        public static final String COLUMN_NAME_NAZIONE = "Nazione";
+        public static final String COLUMN_NAME_LUNGHEZZA = "Lunghezza";
+
+
+
+        // SQL per creare la tabella
+        static final String SQL_CREATE1 =
+                "CREATE TABLE `Circuito` (\n" +
+                        "\t`id`\tINTEGER PRIMARY KEY AUTOINCREMENT,\n" +
+                        "\t`Nome`\tTEXT,\n" +
+                        "\t`Nazione`\tTEXT,\n" +
+                        "\t`Lunghezza`\tTEXT\n" +
+                        ");";
+
+        // SQL per cancellare la tabella
+        static final String SQL_DROPTABLE1 =
+                "DROP TABLE IF EXISTS " + TABLE_NAME + ";";
+    }
+
 }
 
