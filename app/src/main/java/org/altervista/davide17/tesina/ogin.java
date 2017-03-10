@@ -21,6 +21,7 @@ public class ogin extends AppCompatActivity {
     String u;
     String p;
     int id=0;
+    int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +116,15 @@ public class ogin extends AppCompatActivity {
 
     }
     public void onBackPressed(){
-
+        i++;
+        System.out.println("I : " + i);
+        if(i%2==0){
+            return;
+        }
+        else {
+            i=0;
+            System.exit(0);
+        }
     }
+
 }
