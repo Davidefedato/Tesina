@@ -13,38 +13,55 @@
         android:layout_height="wrap_content"
         android:text="CARICA DATI SUL DATABASE"
         android:id="@+id/caricaDB"
+        android:layout_marginBottom="44dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="93dp" />
+        android:layout_centerHorizontal="true" />
 
     <Spinner android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:id="@+id/categoria"
-        android:layout_width="match_parent" />
+        android:layout_width="match_parent"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Spinner android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moto"
         android:nestedScrollingEnabled="false"
         android:layout_below="@+id/categoria"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/nazione"
-        android:layout_below="@+id/moto"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp" />
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/circuito"
         android:layout_below="@+id/nazione"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Circuito :"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/nazione"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Moto :"
+        android:id="@+id/textView4"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

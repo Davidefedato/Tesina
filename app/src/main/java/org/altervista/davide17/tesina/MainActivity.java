@@ -94,4 +94,10 @@ public class MainActivity extends AppCompatActivity {
         startClientT.start();
     }
     //a qui
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent i = new Intent(getApplicationContext(), ogin.class);
+        startActivity(i);
+    }
 }

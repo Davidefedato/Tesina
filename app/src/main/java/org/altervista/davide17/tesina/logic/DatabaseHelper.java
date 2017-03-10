@@ -44,7 +44,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String line = null;
             db.beginTransaction();
             while ((line = br.readLine()) != null) {
-                Log.d("DatabaseHelper", line);
+                if(line.equals(""))
+                    break;
                 System.out.println(line);
                 db.execSQL(line);
             }

@@ -21,7 +21,6 @@ public class ogin extends AppCompatActivity {
     String u;
     String p;
     int id=0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,9 +113,8 @@ public class ogin extends AppCompatActivity {
             }
         });
 
-
-
-
+    }
+    public void onBackPressed(){
 
     }
 }

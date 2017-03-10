@@ -1,6 +1,7 @@
 package org.altervista.davide17.tesina;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.altervista.davide17.tesina.logic.DatabaseHelper;
+import org.altervista.davide17.tesina.logic.OnClientMessageRead;
+import org.altervista.davide17.tesina.logic.ReadURL;
+import org.altervista.davide17.tesina.logic.User;
 
 import java.util.ArrayList;
 
@@ -30,7 +34,7 @@ public class dati extends AppCompatActivity {
     String tempo;
     String dati;
     String stringa;
-    int i=0;
+    int i = 0;
     String queryCat;
     String queryNaz;
 
@@ -42,11 +46,11 @@ public class dati extends AppCompatActivity {
     String queryCategoria;
     String categoriaSelezionata;
 
-    ArrayList <String> categorie;
-    ArrayList <String> elencoMoto;
+    ArrayList<String> categorie;
+    ArrayList<String> elencoMoto;
 
-    ArrayList <String> nazioni;
-    ArrayList <String> elencoCircuiti;
+    ArrayList<String> nazioni;
+    ArrayList<String> elencoCircuiti;
 
     private ArrayAdapter<String> spinnerAdapter;
     private ArrayAdapter<String> spinnerAdapter1;
@@ -107,7 +111,7 @@ public class dati extends AppCompatActivity {
         }
         spinnerAdapter.addAll(categorie);
 
-        while (e.moveToNext()){
+        while (e.moveToNext()) {
             nazioni.add(e.getString(0));
         }
         spinnerAdapter2.addAll(nazioni);
@@ -128,7 +132,7 @@ public class dati extends AppCompatActivity {
 
                 for (int i = 0; i < x; i++) {
                     d.moveToNext();
-                    dati = d.getString(0) + " " + d.getString(1) + " " + d.getString(2);
+                    dati = d.getString(0) + " " + d.getString(1) + " " + d.getString(2) + "cc";
                     elencoMoto.add(dati);
                 }
 
@@ -137,6 +141,7 @@ public class dati extends AppCompatActivity {
                 spinnerAdapter1.addAll(elencoMoto);
                 d.close();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -180,7 +185,7 @@ public class dati extends AppCompatActivity {
 
                 for (int i = 0; i < x; i++) {
                     d.moveToNext();
-                    stringa = d.getString(0) + " " + d.getString(1) + " " + d.getString(2);
+                    stringa = d.getString(0) + " " + d.getString(1) + " " + d.getString(2) + "m";
                     elencoCircuiti.add(stringa);
                 }
 
@@ -189,6 +194,7 @@ public class dati extends AppCompatActivity {
                 spinnerAdapter3.addAll(elencoCircuiti);
                 d.close();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -215,25 +221,16 @@ public class dati extends AppCompatActivity {
 
         db.close();
 
-
-
-
-
-
-
-
-
-
         //BOTTONE PER CARICARE I DATI
 
-        /*bottone.setOnClickListener(new View.OnClickListener() {
+        bottone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int id = User.id;
                 System.out.println("ID: " + id);
                 tempo = "1:03:40";
                 //GENERA LA QUERY PER INSERIRE I DATI NEL DATABASE
-                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/caricaDBprova.php?idMotociclista="+id+"&tempo="+tempo+"&moto="+motoQuery+"&circuito="+circuitoDB);
+                ReadURL readURL = new ReadURL("http://davide17.altervista.org/TESINA/caricaDBprova.php?idMotociclista=" + id + "&tempo=" + tempo + "&moto=" + motoQuery + "&circuito=" + circuitoQuery);
                 readURL.onClientMessageRead = new OnClientMessageRead() {
                     @Override
                     public void onMessageRead(final String message) {
@@ -242,12 +239,11 @@ public class dati extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                               if (message.equalsIgnoreCase("Caricamento fallito")){
-                                    Toast.makeText(getApplicationContext(),"Caricamento fallito", Toast.LENGTH_LONG).show();
+                                if (message.equalsIgnoreCase("Caricamento fallito")) {
+                                    Toast.makeText(getApplicationContext(), "Caricamento fallito", Toast.LENGTH_LONG).show();
 
-                                }
-                                else {
-                                    Toast.makeText(getApplicationContext(),"Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
                                 }
                             }
                         });
@@ -255,7 +251,12 @@ public class dati extends AppCompatActivity {
                 };
                 readURL.start();
             }
-        });*/
+        });
 
     }
+        public void onBackPressed(){
+            super.onBackPressed();
+            Intent i = new Intent(getApplicationContext(), ogin.class);
+            startActivity(i);
+        }
 }
