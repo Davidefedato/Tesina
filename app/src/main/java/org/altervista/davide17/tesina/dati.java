@@ -35,8 +35,11 @@ public class dati extends AppCompatActivity {
     String dati;
     String stringa;
     int i = 0;
+    int correctMoto = 0;
+    int correctCircuito = 0;
     String queryCat;
     String queryNaz;
+
 
     private Spinner categoria;
     private Spinner moto;
@@ -72,6 +75,8 @@ public class dati extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dati);
         bottone = (Button) findViewById(R.id.caricaDB);
+        bottone.setVisibility(View.INVISIBLE);
+
 
         categoria = (Spinner) findViewById(R.id.categoria);
         moto = (Spinner) findViewById(R.id.moto);
@@ -127,6 +132,7 @@ public class dati extends AppCompatActivity {
                 SQLiteDatabase db = gdh.getWritableDatabase();
 
                 String selectQuery = "SELECT Marca, Modello, Cilindrata  FROM Moto WHERE Categoria = '" + s + "' ";
+                correctMoto = 0;
                 Cursor d = db.rawQuery(selectQuery, null);
                 int x = d.getCount();
 
@@ -156,7 +162,9 @@ public class dati extends AppCompatActivity {
                 s = txt.getText().toString();
                 if (s != "--Scegli--") {
                     motoQuery = s;
-
+                    correctMoto = 1;
+                    if (correctMoto == 1 && correctCircuito == 1)
+                        bottone.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -180,6 +188,7 @@ public class dati extends AppCompatActivity {
                 SQLiteDatabase db = gdh.getWritableDatabase();
 
                 String selectQuery = "SELECT Nome, Nazione, Lunghezza  FROM Circuito WHERE Nazione = '" + s + "' ";
+                correctCircuito = 0;
                 Cursor d = db.rawQuery(selectQuery, null);
                 int x = d.getCount();
 
@@ -209,7 +218,9 @@ public class dati extends AppCompatActivity {
                 s = txt.getText().toString();
                 if (s != "--Scegli--") {
                     circuitoQuery = s;
-
+                    correctCircuito = 1;
+                    if (correctMoto == 1 && correctCircuito == 1)
+                        bottone.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -221,8 +232,9 @@ public class dati extends AppCompatActivity {
 
         db.close();
 
-        //BOTTONE PER CARICARE I DATI
 
+
+        //BOTTONE PER CARICARE I DATI
         bottone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,6 +256,7 @@ public class dati extends AppCompatActivity {
 
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Caricamento avvenuto con successo", Toast.LENGTH_LONG).show();
+                                    bottone.setVisibility(View.INVISIBLE);
                                 }
                             }
                         });
